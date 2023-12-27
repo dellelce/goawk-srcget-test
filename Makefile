@@ -12,3 +12,6 @@ fmt:
 
 run:
 	@docker run -it --rm $(TARGET)
+
+shell:
+	@docker run -it --rm $(TARGET) sh
