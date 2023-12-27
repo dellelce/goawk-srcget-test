@@ -15,3 +15,5 @@ run:
 
 shell:
 	@docker run -it --rm $(TARGET) sh
+
+brun: build run
