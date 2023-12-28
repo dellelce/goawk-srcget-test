@@ -10,9 +10,8 @@ import (
 	"net/http"
 )
 
-// later: awk/firstaftermatchword-trim.latest.awk
-// go:embed awk/github.latest.awk
-var f1 []byte
+//go:embed awk/github.latest.awk
+var source []byte
 
 func download(url string) ([]byte, error) {
 	resp, err := http.Get(url)
@@ -31,24 +30,16 @@ func download(url string) ([]byte, error) {
 
 func main() {
 	body, err := download("https://github.com/landley/toybox/tags")
-
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
-	fmt.Printf("debug: github content:%s\n", body[:100])
-
-	source := f1
 	if len(source) == 0 {
 		fmt.Println("did not read awk source correctly")
 		return
 	}
 
-	fmt.Println("debug: awk file:%s", source[:100])
-
 	prog, err := parser.ParseProgram([]byte(source), nil)
-
 	if err != nil {
 		fmt.Println(err)
 		return
