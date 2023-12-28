@@ -7,7 +7,7 @@ ENV GOOS=linux
 
 COPY src /build/
 
-RUN cd /build && ls -ltR &&  go build -o /awktest
+RUN cd /build && go build -o /awktest
 
 FROM alpine
 
