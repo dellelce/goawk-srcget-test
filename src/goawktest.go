@@ -45,8 +45,11 @@ func main() {
 		return
 	}
 
+	output := new(bytes.Buffer)
+
 	config := &interp.Config{
-		Stdin: bytes.NewBufferString(string(body)),
+		Stdin:  bytes.NewBuffer(body),
+		Output: output,
 	}
 
 	_, err = interp.ExecProgram(prog, config)
@@ -54,5 +57,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
+	fmt.Printf("%s\n", output)
 
 }
