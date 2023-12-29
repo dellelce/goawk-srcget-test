@@ -8,6 +8,7 @@ import (
 	"github.com/benhoyt/goawk/parser"
 	"io"
 	"net/http"
+	"regexp"
 )
 
 //go:embed awk/github.latest.awk
@@ -58,6 +59,17 @@ func main() {
 		return
 	}
 
-	fmt.Printf("%s\n", output)
+	outArray := bytes.Split(output.Bytes(), []byte("\n"))
+	pattern := regexp.MustCompile("#DEBUG:")
+
+	for i := 0; i < len(outArray); i++ {
+		firstMatchIndex := pattern.FindStringIndex(string(outArray[i]))
+
+		if firstMatchIndex != nil {
+			fmt.Printf("line %d ignored: debug message.\n", i)
+		} else {
+			fmt.Printf("%d: %s\n", i, outArray[i])
+		}
+	}
 
 }
