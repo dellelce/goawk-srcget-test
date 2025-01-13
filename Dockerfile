@@ -1,5 +1,5 @@
 
-ARG BASE=golang:1.21-alpine
+ARG BASE=golang:1.23-alpine
 FROM $BASE as base
 
 ENV CGO_ENABLED=0
